@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The All in One - hadi</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <!-- Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #1c1c1c);
+            background-size: 400% 400%;
+            animation: bgMove 15s ease infinite;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        @keyframes bgMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            opacity: 0.7;
+            margin-bottom: 40px;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 900px;
+        }
+
+        .btn {
+            padding: 18px;
+            border-radius: 18px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            color: white;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-6px) rotateX(6deg);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        /* 🔑 Secret Input Box */
+        .secret-box {
+            margin-top: 60px;
+            width: 100%;
+            max-width: 400px;
+            background: rgba(0,0,0,0.35);
+            padding: 20px;
+            border-radius: 16px;
+            backdrop-filter: blur(12px);
+        }
+
+        .typed {
+            font-size: 1.2rem;
+            min-height: 28px;
+            letter-spacing: 3px;
+        }
+
+        .status {
+            margin-top: 10px;
+            font-size: 1rem;
+            height: 24px;
+        }
+
+        .status.error {
+            color: #ff5c5c;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+        }
+
+        /* 🔒 Secret Page */
+        .secret-page {
+            display: none;
+            min-height: 100vh;
+            padding: 40px 20px;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.96); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .secret-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .gradient-btn {
+            padding: 20px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            border-radius: 18px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gradient-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .beeg {
+            background: linear-gradient(135deg, #7f00ff, #00c6ff);
+            color: white;
+        }
+
+        .ph {
+            background: linear-gradient(135deg, #000000, #ff7a00);
+            color: white;
+        }
+
+        .pt {
+            background: linear-gradient(135deg, #ffffff, #b983ff);
+            color: black;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- 🌐 MAIN PAGE -->
+<div class="container" id="mainPage">
+    <h1>The All in One – hadi</h1>
+    <div class="subtitle">everything. one place.</div>
+
+    <div class="button-grid">
+        <!-- 🔗 MAIN BUTTON URLS (EDIT THESE) -->
+        <button class="btn" onclick="location.href='https://example.com'">Button One</button>
+        <button class="btn" onclick="location.href='https://example.com'">Button Two</button>
+        <button class="btn" onclick="location.href='https://example.com'">Button Three</button>
+        <button class="btn" onclick="location.href='https://example.com'">Button Four</button>
+        <button class="btn" onclick="location.href='https://example.com'">Button Five</button>
+    </div>
+
+    <!-- 🔑 SECRET INPUT -->
+    <div class="secret-box">
+        <div class="typed" id="typedText"></div>
+        <div class="status" id="status"></div>
+        <small style="opacity:0.6">type something...</small>
+    </div>
+</div>
+
+<!-- 🔒 SECRET PAGE -->
+<div class="secret-page" id="secretPage">
+    <h1 style="text-align:center;">secret unlocked 🗝️</h1>
+
+    <div class="secret-buttons">
+        <!-- 🔗 SECRET BUTTON URLS (EDIT THESE) -->
+        <button class="gradient-btn beeg" onclick="location.href='https://example.com'">beeg</button>
+        <button class="gradient-btn ph" onclick="location.href='https://example.com'">PH</button>
+        <button class="gradient-btn pt" onclick="location.href='https://example.com'">PT</button>
+    </div>
+</div>
+
+<script>
+    let buffer = "";
+    const typedText = document.getElementById("typedText");
+    const status = document.getElementById("status");
+
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            if (buffer.toLowerCase() === "zorocem") {
+                document.getElementById("mainPage").style.display = "none";
+                document.getElementById("secretPage").style.display = "block";
+            } else {
+                status.className = "status error";
+                status.innerHTML = '<span class="material-icons">close</span> Incorrect';
+                buffer = "";
+                typedText.textContent = "";
+            }
+            return;
+        }
+
+        if (e.key === "Backspace") {
+            buffer = buffer.slice(0, -1);
+        } else if (e.key.length === 1) {
+            buffer += e.key;
+        }
+
+        typedText.textContent = buffer;
+        status.textContent = "";
+    });
+</script>
+
+</body>
+</html>
