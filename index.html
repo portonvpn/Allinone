@@ -1,235 +1,276 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The All in One - hadi</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The all in one Downloader, - Hadi</title>
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <!-- Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<style>
+* {
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
 
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: white;
+    overflow-x: hidden;
+}
 
-        body {
-            margin: 0;
-            min-height: 100vh;
-            background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #1c1c1c);
-            background-size: 400% 400%;
-            animation: bgMove 15s ease infinite;
-            color: white;
-            overflow-x: hidden;
-        }
+#bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+}
 
-        @keyframes bgMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
+.container {
+    padding: 60px 20px;
+    max-width: 1100px;
+    margin: auto;
+    animation: loadIn 1.2s ease forwards;
+}
 
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 40px 20px;
-            text-align: center;
-        }
+@keyframes loadIn {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
-        h1 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            margin-bottom: 10px;
-        }
+/* Typing title */
+h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: 3px solid rgba(255,255,255,0.6);
+    width: 0;
+    animation: typing 2.8s steps(40,end) forwards, blink 0.8s infinite;
+}
 
-        .subtitle {
-            opacity: 0.7;
-            margin-bottom: 40px;
-        }
+@keyframes typing {
+    to { width: 100%; }
+}
 
-        .button-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px;
-            width: 100%;
-            max-width: 900px;
-        }
+@keyframes blink {
+    50% { border-color: transparent; }
+}
 
-        .btn {
-            padding: 18px;
-            border-radius: 18px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            color: white;
-            background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+.subtitle {
+    opacity: 0.6;
+    margin-bottom: 55px;
+}
 
-        .btn:hover {
-            transform: translateY(-6px) rotateX(6deg);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-        }
+/* Buttons */
+.button-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 25px;
+}
 
-        /* 🔑 Secret Input Box */
-        .secret-box {
-            margin-top: 60px;
-            width: 100%;
-            max-width: 400px;
-            background: rgba(0,0,0,0.35);
-            padding: 20px;
-            border-radius: 16px;
-            backdrop-filter: blur(12px);
-        }
+.btn {
+    padding: 22px;
+    border-radius: 22px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    color: white;
+    backdrop-filter: blur(18px);
+    transition: all 0.35s ease;
+    box-shadow: 0 0 0 rgba(0,0,0,0);
+}
 
-        .typed {
-            font-size: 1.2rem;
-            min-height: 28px;
-            letter-spacing: 3px;
-        }
+.btn:hover {
+    transform: translateY(-8px) scale(1.03);
+}
 
-        .status {
-            margin-top: 10px;
-            font-size: 1rem;
-            height: 24px;
-        }
+/* Button color themes */
+.spotify {
+    background: linear-gradient(135deg, #1db954, #1ed760);
+}
+.spotify:hover {
+    box-shadow: 0 0 35px rgba(30,215,96,0.6);
+}
 
-        .status.error {
-            color: #ff5c5c;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
+.youtube {
+    background: linear-gradient(135deg, #ff0033, #ff5f5f);
+}
+.youtube:hover {
+    box-shadow: 0 0 35px rgba(255,0,51,0.6);
+}
 
-        /* 🔒 Secret Page */
-        .secret-page {
-            display: none;
-            min-height: 100vh;
-            padding: 40px 20px;
-            animation: fadeIn 0.6s ease forwards;
-        }
+.transfer {
+    background: linear-gradient(135deg, #7f00ff, #c77dff);
+}
+.transfer:hover {
+    box-shadow: 0 0 35px rgba(183,130,255,0.6);
+}
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: scale(0.96); }
-            to { opacity: 1; transform: scale(1); }
-        }
+.movies {
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+}
+.movies:hover {
+    box-shadow: 0 0 35px rgba(0,114,255,0.6);
+}
 
-        .secret-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            max-width: 400px;
-            margin: 0 auto;
-        }
+.games {
+    background: linear-gradient(135deg, #f7971e, #ffd200);
+    color: black;
+}
+.games:hover {
+    box-shadow: 0 0 35px rgba(255,210,0,0.6);
+}
 
-        .gradient-btn {
-            padding: 20px;
-            font-size: 1.3rem;
-            font-weight: 700;
-            border-radius: 18px;
-            border: none;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
+/* Secret typing */
+#typed {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    letter-spacing: 4px;
+    opacity: 0.35;
+    transition: all 0.6s ease;
+    pointer-events: none;
+}
 
-        .gradient-btn:hover {
-            transform: scale(1.05);
-        }
+#typed.active {
+    top: 18px;
+    left: 18px;
+    transform: none;
+    opacity: 0.7;
+}
 
-        .beeg {
-            background: linear-gradient(135deg, #7f00ff, #00c6ff);
-            color: white;
-        }
+#status {
+    position: fixed;
+    top: 55px;
+    left: 18px;
+    color: #ff5c5c;
+    font-size: 0.95rem;
+}
 
-        .ph {
-            background: linear-gradient(135deg, #000000, #ff7a00);
-            color: white;
-        }
+/* Secret page */
+#secretPage {
+    display: none;
+    padding: 60px 20px;
+    text-align: center;
+    animation: loadIn 1s ease forwards;
+}
 
-        .pt {
-            background: linear-gradient(135deg, #ffffff, #b983ff);
-            color: black;
-        }
+.secret-buttons {
+    max-width: 420px;
+    margin: 40px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
 
-        @media (max-width: 600px) {
-            h1 {
-                font-size: 2.2rem;
-            }
-        }
-    </style>
+.gradient-btn {
+    padding: 24px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    border-radius: 24px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.gradient-btn:hover {
+    transform: scale(1.06);
+}
+
+.beeg {
+    background: linear-gradient(135deg, #7f00ff, #00c6ff);
+}
+.ph {
+    background: linear-gradient(135deg, #000000, #ff7a00);
+}
+.pt {
+    background: linear-gradient(135deg, #ffffff, #b983ff);
+    color: black;
+}
+
+@media (max-width: 600px) {
+    h1 { font-size: 2.2rem; }
+}
+</style>
 </head>
+
 <body>
 
-<!-- 🌐 MAIN PAGE -->
+<div id="bg"></div>
+
 <div class="container" id="mainPage">
-    <h1>The All in One – hadi</h1>
+    <h1>The all in one downloader – hadi</h1>
     <div class="subtitle">everything. one place.</div>
 
     <div class="button-grid">
-        <!-- 🔗 MAIN BUTTON URLS (EDIT THESE) -->
-        <button class="btn" onclick="location.href='https://example.com'">Button One</button>
-        <button class="btn" onclick="location.href='https://example.com'">Button Two</button>
-        <button class="btn" onclick="location.href='https://example.com'">Button Three</button>
-        <button class="btn" onclick="location.href='https://example.com'">Button Four</button>
-        <button class="btn" onclick="location.href='https://example.com'">Button Five</button>
-    </div>
-
-    <!-- 🔑 SECRET INPUT -->
-    <div class="secret-box">
-        <div class="typed" id="typedText"></div>
-        <div class="status" id="status"></div>
-        <small style="opacity:0.6">type something...</small>
+        <button class="btn spotify" onclick="window.open('https://spotidownloader.com/en14','_blank')">Spotify downloader</button>
+        <button class="btn youtube" onclick="window.open('https://v6.www-y2mate.com/','_blank')">Youtube downloader</button>
+        <button class="btn transfer" onclick="window.open('https://www.tunemymusic.com/','_blank')">Transfer music</button>
+        <button class="btn movies" onclick="window.open('https://pahe.ink','_blank')">Movie/show downloader</button>
+        <button class="btn games" onclick="window.open('https://fitgirl-repacks.site/','_blank')">Games downloader</button>
     </div>
 </div>
 
-<!-- 🔒 SECRET PAGE -->
-<div class="secret-page" id="secretPage">
-    <h1 style="text-align:center;">secret unlocked 🗝️</h1>
+<div id="typed"></div>
+<div id="status"></div>
 
+<div id="secretPage">
+    <h1>Access granted</h1>
     <div class="secret-buttons">
-        <!-- 🔗 SECRET BUTTON URLS (EDIT THESE) -->
-        <button class="gradient-btn beeg" onclick="location.href='https://example.com'">beeg</button>
-        <button class="gradient-btn ph" onclick="location.href='https://example.com'">PH</button>
-        <button class="gradient-btn pt" onclick="location.href='https://example.com'">PT</button>
+        <button class="gradient-btn beeg" onclick="window.open('https://beeg.com','_blank')">beeg</button>
+        <button class="gradient-btn ph" onclick="window.open('https://pornhub.com','_blank')">PH</button>
+        <button class="gradient-btn pt" onclick="window.open('https://www.dinotube.com/','_blank')">PT</button>
     </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.dots.min.js"></script>
 
 <script>
-    let buffer = "";
-    const typedText = document.getElementById("typedText");
-    const status = document.getElementById("status");
+VANTA.DOTS({
+    el: "#bg",
+    mouseControls: true,
+    touchControls: true,
+    gyroControls: false,
+    color: 0xb983ff,
+    color2: 0x7f00ff,
+    backgroundColor: 0x0b0615,
+    spacing: 32,
+    size: 3.2
+});
 
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
-            if (buffer.toLowerCase() === "zorocem") {
-                document.getElementById("mainPage").style.display = "none";
-                document.getElementById("secretPage").style.display = "block";
-            } else {
-                status.className = "status error";
-                status.innerHTML = '<span class="material-icons">close</span> Incorrect';
-                buffer = "";
-                typedText.textContent = "";
-            }
-            return;
+let buffer = "";
+const typed = document.getElementById("typed");
+const status = document.getElementById("status");
+
+document.addEventListener("keydown", e => {
+    typed.classList.add("active");
+
+    if (e.key === "Enter") {
+        if (buffer.toLowerCase() === "zorocem") {
+            document.getElementById("mainPage").style.display = "none";
+            document.getElementById("secretPage").style.display = "block";
+        } else {
+            status.innerHTML = '<span class="material-icons">close</span> Incorrect';
+            buffer = "";
+            typed.textContent = "";
         }
+        return;
+    }
 
-        if (e.key === "Backspace") {
-            buffer = buffer.slice(0, -1);
-        } else if (e.key.length === 1) {
-            buffer += e.key;
-        }
+    if (e.key === "Backspace") {
+        buffer = buffer.slice(0, -1);
+    } else if (e.key.length === 1) {
+        buffer += e.key;
+    }
 
-        typedText.textContent = buffer;
-        status.textContent = "";
-    });
+    typed.textContent = buffer;
+});
 </script>
 
 </body>
