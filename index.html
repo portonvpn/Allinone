@@ -19,7 +19,7 @@
             --netflix: 229, 9, 20;
 
             --spotify-g: linear-gradient(135deg, rgba(var(--spotify), 0.2), rgba(var(--spotify), 0.05));
-            --youtube-g: linear-gradient(135deg, rgba(var(--youtube), 0.2), rgba(var(--youtube), 0.05));
+            --youtube-g: linear-gradient(135deg, rgba(255, 0, 51, 0.2), rgba(255, 95, 95, 0.05));
             --fmhy-g: linear-gradient(135deg, rgba(var(--fmhy), 0.2), rgba(var(--fmhy), 0.05));
             --movies-g: linear-gradient(135deg, rgba(var(--movies), 0.2), rgba(var(--movies), 0.05));
             --games-g: linear-gradient(135deg, rgba(var(--games), 0.2), rgba(var(--games), 0.05));
@@ -124,12 +124,12 @@
         }
     </style>
 </head>
-<body onclick="unlockAudio()">
+<body onmousedown="unlockAudio()" ontouchstart="unlockAudio()" onkeydown="unlockAudio()">
 <div id="bg"></div>
 <div class="container" id="mainPage">
     <header>
         <h1>The all in one downloader – hadi</h1>
-        <p class="version-text" ondblclick="triggerVault()">v4.4 revamp - powered by <span id="trigger">cemduo</span></p>
+        <p class="version-text" ondblclick="triggerVault()">v4.5 - powered by <span id="trigger">cemduo</span></p>
     </header>
     <div class="button-grid">
         <button class="btn netflix" onclick="fastOpen('https://net22.cc/home', event, this)">
@@ -172,7 +172,10 @@ let audioUnlocked = false;
 function unlockAudio() {
     if (audioUnlocked) return;
     const bgMusic = document.getElementById("auroraAmbience");
-    bgMusic.play().then(() => { audioUnlocked = true; }).catch(e => console.log("Waiting for user click..."));
+    bgMusic.play().then(() => { 
+        audioUnlocked = true; 
+        console.log("Aurora Vibe Active");
+    }).catch(e => {});
 }
 
 function fastOpen(url, e, el) {
